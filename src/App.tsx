@@ -12,6 +12,9 @@ import Settings from "./pages/Settings";
 import NotFound from "./pages/NotFound";
 import { TelegramProvider } from "./context/TelegramContext";
 
+// Log for debugging GitHub Pages deployment
+console.log("App is initializing with base URL:", import.meta.env.BASE_URL);
+
 const queryClient = new QueryClient();
 
 const App = () => (
