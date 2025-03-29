@@ -1,8 +1,10 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import HabitItem from '../components/HabitItem';
 import { useHabits } from '../hooks/useHabits';
 import { getTodayFormatted } from '../utils/dateUtils';
+import { useTelegramContext } from '../context/TelegramContext';
 
 const Today: React.FC = () => {
   const { getTodayHabits, updateHabitCompletion } = useHabits();
@@ -14,6 +16,25 @@ const Today: React.FC = () => {
     month: 'long',
     day: 'numeric'
   });
+  
+  const navigate = useNavigate();
+  const { isAvailable, showMainButton, hideMainButton } = useTelegramContext();
+  
+  useEffect(() => {
+    if (isAvailable && todayHabits.length === 0) {
+      showMainButton('Add Your First Habit', () => {
+        navigate('/habits');
+      });
+    } else if (isAvailable) {
+      hideMainButton();
+    }
+    
+    return () => {
+      if (isAvailable) {
+        hideMainButton();
+      }
+    };
+  }, [isAvailable, todayHabits.length, showMainButton, hideMainButton, navigate]);
 
   return (
     <div className="container mx-auto px-4 pb-20">
