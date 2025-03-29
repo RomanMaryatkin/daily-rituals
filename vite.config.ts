@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 8080,
   },
-  base: './', // Add this line for GitHub Pages deployment
+  base: '/daily-rituals/', // Update this to match your repository name exactly
   plugins: [
     react(),
     mode === 'development' &&
